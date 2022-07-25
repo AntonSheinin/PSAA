@@ -1,7 +1,7 @@
 #Home Assignment for PTBox.io test
 
-import logging
-import messageBroker
+#import logging
+#import messageBroker
 
 from distutils.util import change_root
 import json
@@ -13,8 +13,8 @@ from urllib import response
 import redis
 from bottle import route, run, template, request, static_file, error, default_app, response
 
-import analize
-import search_password
+#import analize
+#import search_password
 
 allowed_IP = ['127.0.0.1', '62.90.52.94', '94.130.136.116', '10.100.102.1']
 menu_links = {'main-menu' : 'main_menu',
