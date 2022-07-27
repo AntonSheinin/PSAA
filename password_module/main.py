@@ -28,6 +28,7 @@ def get_files_list(directory):
     files_list = []
 
     for root, directories, files in os.walk(directory):
+        print(root, directories, files)
         for file_name in files:
             file_path = os.path.join(root, file_name)
             files_list.append(file_path)
