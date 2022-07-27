@@ -19,7 +19,7 @@ from bottle import route, run, template, request, static_file, error, default_ap
 allowed_IP = ['127.0.0.1', '62.90.52.94', '94.130.136.116', '10.100.102.1']
 menu_links = {'main-menu' : 'main_menu',
               'search' : 'search_password',
-              'analize' : 'analize'}
+              'analize' : 'analize_files'}
              
 redis_client = redis.Redis(host='localhost', port=6379, db=0)
 
@@ -54,6 +54,31 @@ def http_error_handling(code):
 
 def main_menu(session):
     return template('templates/main_menu.tpl')
+
+def search_password():
+    message_broker('add', 'password_search')
+    result = message_broker('get', 'password_search',)
+    return template('templates/password_search_result.tpl', list = result)
+
+def analize_password():
+    message_broker('add', 'files_analize')
+    result = message_broker('get', 'files_analize')
+    return template('templates/files_analize_result.tpl', list = result)
+
+def message_broker(command, func_name):
+    
+    if command == 'add':
+        redis_client.rpush('queue', func_name)
+
+    if command == 'get':
+        redis_client.rpop('result')
+
+def search_module():
+    
+
+
+def analize_module():
+    pass
 
 #def main():
 #   run(server='gunicorn', host='10.100.102.6', port=8080)
