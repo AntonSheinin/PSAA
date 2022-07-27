@@ -36,7 +36,7 @@ def get_files_list(directory):
     return files_list
 
 def main():
-    files_list = get_files_list('./TheHarvester')
+    files_list = get_files_list('.')
 
     result = password_search(files_list, 'password')
 
