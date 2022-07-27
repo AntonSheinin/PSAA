@@ -34,8 +34,7 @@ def get_files_list(directory):
     return files_list
 
 def main():
-    directory = input('Enter directory : ')
-    files_list = get_files_list(directory)
+    files_list = get_files_list('../theHarvester')
 
     result = password_search(files_list, 'password')
 
