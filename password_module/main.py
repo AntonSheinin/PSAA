@@ -26,9 +26,7 @@ def password_search(files_list, word):
 def get_files_list(directory):
 
     files_list = []
-    print(directory)
     for root, directories, files in os.walk(directory):
-        print(root, directories, files)
         for file_name in files:
             file_path = os.path.join(root, file_name)
             files_list.append(file_path)
@@ -36,7 +34,8 @@ def get_files_list(directory):
     return files_list
 
 def main():
-    files_list = get_files_list('.')
+    directory = input('Enter directory : ')
+    files_list = get_files_list(directory)
 
     result = password_search(files_list, 'password')
 
