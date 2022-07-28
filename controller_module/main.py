@@ -6,14 +6,12 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-CELERY_QUEUES = (
-    Queue('search_queue', Exchange('search_queue'), routing_key='search_queue'),
-    Queue('analyze_queue', Exchange('analyze_queue'), routing_key='analyze_queue'),
-)
+CELERY_QUEUES = {'search_queue': {'exchange' : 'search_queue', 'routing_key' : 'search_queue'},
+                 'analyze_queue': {'exchange' : 'analyze_queue', 'routing_key' : 'analyze_queue'}}
 
 CELERY_ROUTES = {
-    'search_entry_point': {'queue': 'search_queue', 'routing_key': 'search_queue'},
-    'analyze_entrypoint': {'queue': 'analyze_queue', 'routing_key': 'analyze_queue'},
+    'search': {'queue': 'search_queue', 'routing_key': 'search_queue'},
+    'analyze': {'queue': 'analyze_queue', 'routing_key': 'analyze_queue'},
 }
 
 app.conf.update(
