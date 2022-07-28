@@ -32,3 +32,4 @@ def main():
 
 if __name__ == '__main__':
     logger.info("Controller module is running and listening...")
+    main()
