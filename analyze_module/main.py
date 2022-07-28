@@ -42,9 +42,11 @@ def files_list_analize(files_list):
     return result
 
 def main():
-    files_list = get_files_list("d:/Private/Phyton/PSAA/TheHarvester")
+    app.start()
 
-    result = files_list_analize(files_list)
+    #files_list = get_files_list("d:/Private/Phyton/PSAA/TheHarvester")
+
+    #result = files_list_analize(files_list)
 
 if __name__ == '__main__':
     logger.info("Analyze module is listening...")

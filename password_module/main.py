@@ -36,11 +36,12 @@ def get_files_list(directory):
     return files_list
 
 def main():
-    files_list = get_files_list('../theHarvester')
+    app.start()
+    #files_list = get_files_list('../theHarvester')
 
-    result = password_search(files_list, 'password')
+    #result = password_search(files_list, 'password')
 
-    print(result)
+    #print(result)
 
 if __name__ == '__main__':
     logger.info("Password module is listening...")
