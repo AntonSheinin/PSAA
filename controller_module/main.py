@@ -26,11 +26,11 @@ app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
 def main()
     app.start()
 
-    search_result = search_entry_point()
-    print(search_result)
+    #search_result = search_entry_point()
+    #print(search_result)
 
-    analize_result = analize_entry_point()
-    print(search_result)
+    analyze_result = analyze.delay()
+    print(analyze_result)
 
 if __name__ == '__main__':
     logger.info("Controller module is running and listening...")
