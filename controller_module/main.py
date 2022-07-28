@@ -1,94 +1,36 @@
 #Home Assignment for PTBox.io test
 
-#import logging
-#import messageBroker
+from celery import Celery
+import logging 
 
-from distutils.util import change_root
-import json
-import requests
-from requests.auth import HTTPBasicAuth
-import secrets
-from random import random
-from urllib import response
-import redis
-from bottle import route, run, template, request, static_file, error, default_app, response
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-#import analize
-#import search_password
+CELERY_QUEUES = (
+    Queue('search_queue', Exchange('search_queue'), routing_key='search_queue'),
+    Queue('analize_queue', Exchange('analize_queue'), routing_key='analize_queue'),
+)
 
-allowed_IP = ['127.0.0.1', '62.90.52.94', '94.130.136.116', '10.100.102.1']
-menu_links = {'main-menu' : 'main_menu',
-              'search' : 'search_password',
-              'analize' : 'analize_files'}
-             
-redis_client = redis.Redis(host='localhost', port=6379, db=0)
+CELERY_ROUTES = {
+    'search_entry_point': {'queue': 'search_queue', 'routing_key': 'search_queue'},
+    'analize_entrypoint': {'queue': 'analize_queue', 'routing_key': 'analize_queue'},
+}
 
-@route('/<url>', method=['GET','POST'])
-def router(url):
+app.conf.update(
+    task_serializer='json',
+    accept_content=['json'],  
+    result_serializer='json',
 
-    #if (request.environ.get('HTTP_X_FORWARDED_FOR') is not None and request.environ.get('HTTP_X_FORWARDED_FOR') not in allowed_IP) or request.environ.get('REMOTE_ADDR') not in allowed_IP:
-    #    print(request.environ.get('REMOTE_ADDR'))
-    #    return(http_error_handling(403))
+app = Celery('tasks', backend='ampq://', broker='pyamqp://')
 
-    session_id = request.get_cookie('sessionid')
-    print(session_id)
-    if session_id is None:
-        session_id = secrets.token_urlsafe(8)
-        response.set_cookie('sessionid', session_id)
+def main()
+    app.start()
 
-    if url in menu_links:
-        return(globals()[menu_links[url]](session_id))
+    search_result = search_entry_point()
+    print(search_result)
 
-    return(http_error_handling(404))
+    analize_result = analize_entry_point()
+    print(search_result)
 
-@route('/')
-def router_wrapper():
-        return router('main-menu')
-
-def http_error_handling(code):
-
-    if code == 403:
-        return('access denied')
-    if code == 404:
-        return('page doesnt exist')
-
-def main_menu(session):
-    return template('templates/main_menu.tpl')
-
-def search_password():
-    message_broker('add', 'password_search')
-    result = message_broker('get', 'password_search',)
-    return template('templates/password_search_result.tpl', list = result)
-
-def analize_password():
-    message_broker('add', 'files_analize')
-    result = message_broker('get', 'files_analize')
-    return template('templates/files_analize_result.tpl', list = result)
-
-def message_broker(command, func_name):
-    
-    if command == 'add':
-        redis_client.rpush('queue', func_name)
-
-    if command == 'get':
-        redis_client.rpop('result')
-
-def search_module():
-    
-
-
-def analize_module():
-    pass
-
-#def main():
-#   run(server='gunicorn', host='10.100.102.6', port=8080)
-    #run(host='127.0.0.1', port=8080)
-
-app = default_app()
-
-#logging.basicConfig(level=logging.INFO)
-#logger = logging.getLogger(__name__)
-
-#if __name__ == '__main__':
-#    logger.info("Controller module is running and listening...")
-#    # TODO
+if __name__ == '__main__':
+    logger.info("Controller module is running and listening...")
