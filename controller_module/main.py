@@ -13,7 +13,7 @@ CELERY_QUEUES = (
 
 CELERY_ROUTES = {
     'search_entry_point': {'queue': 'search_queue', 'routing_key': 'search_queue'},
-    'analize_entrypoint': {'queue': 'analize_queue', 'routing_key': 'analize_queue'},
+    'analyze_entrypoint': {'queue': 'analyze_queue', 'routing_key': 'analyze_queue'},
 }
 
 app.conf.update(
