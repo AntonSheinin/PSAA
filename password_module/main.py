@@ -1,9 +1,11 @@
 import logging
-#import messageBroker
+from celery import Celery
 import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+app = Celery('password_module', backend='ampq://', broker='pyamqp://', include=['password_module.main'])
 
 def password_search(files_list, word):
 
