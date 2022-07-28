@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 CELERY_QUEUES = (
     Queue('search_queue', Exchange('search_queue'), routing_key='search_queue'),
-    Queue('analize_queue', Exchange('analize_queue'), routing_key='analize_queue'),
+    Queue('analyze_queue', Exchange('analyze_queue'), routing_key='analyze_queue'),
 )
 
 CELERY_ROUTES = {
