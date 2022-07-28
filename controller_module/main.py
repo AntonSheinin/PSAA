@@ -14,12 +14,12 @@ CELERY_ROUTES = {
     'analyze': {'queue': 'analyze_queue', 'routing_key': 'analyze_queue'},
 }
 
+app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
+
 app.conf.update(
     task_serializer='json',
     accept_content=['json'],  
     result_serializer='json')
-
-app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
 
 def main():
     app.start()
