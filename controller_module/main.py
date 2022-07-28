@@ -19,11 +19,11 @@ CELERY_ROUTES = {
 app.conf.update(
     task_serializer='json',
     accept_content=['json'],  
-    result_serializer='json',
+    result_serializer='json')
 
 app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
 
-def main()
+def main():
     app.start()
 
     #search_result = search_entry_point()
