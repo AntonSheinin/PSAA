@@ -21,7 +21,7 @@ app.conf.update(
     accept_content=['json'],  
     result_serializer='json',
 
-app = Celery('controller_module', backend='ampq://', broker='pyamqp://', include=['controller_module.main'])
+app = Celery('main', backend='ampq://', broker='pyamqp://')
 
 def main()
     app.start()

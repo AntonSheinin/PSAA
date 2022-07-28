@@ -5,7 +5,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Celery('password_module', backend='ampq://', broker='pyamqp://', include=['password_module.main'])
+app = Celery('main', backend='ampq://', broker='pyamqp://')
 
 def password_search(files_list, word):
 
