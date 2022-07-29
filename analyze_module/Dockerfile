@@ -7,4 +7,4 @@ COPY ./requirements.txt /home/code/psaa/
 RUN pip3 install -r requirements.txt
 COPY ./ /home/code/psaa/
 USER code
-ENTRYPOINT celery -A main worker --loglevel=INFO
+ENTRYPOINT ls; celery -A main worker --loglevel=INFO
