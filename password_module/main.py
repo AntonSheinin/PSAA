@@ -46,6 +46,3 @@ def password():
     result = password_search(files_list, 'password')
 
     return result
-
-def main():
-    app.start()
