@@ -1,4 +1,4 @@
-#Home Assignment for PTBox.io test
+#Home Assignment for PTBox.io
 
 from celery import Celery
 import logging 
