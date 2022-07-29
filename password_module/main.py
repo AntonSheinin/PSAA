@@ -5,7 +5,7 @@ import os
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
+app = Celery('main', broker='pyamqp://guest@localhost//', backend='rpc://')
 
 def password_search(files_list, word):
 
@@ -35,7 +35,7 @@ def get_files_list(directory):
 
     return files_list
 
-@app.task(name='search')
+@app.task(name='password')
 def search():
     
     files_list = get_files_list('../theHarvester')

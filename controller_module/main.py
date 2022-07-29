@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
+app = Celery('main', broker='pyamqp://guest@localhost//', backend='rpc://')
 
 app.conf.update(
     task_serializer='json',
@@ -22,7 +22,7 @@ def main():
     choise = input('Enter choise : ')
 
     if choise == '1':
-        tasks.append(app.send_task('search'))
+        tasks.append(app.send_task('password'))
     
     elif choise == '2':
         tasks.append(app.send_task('analyze'))

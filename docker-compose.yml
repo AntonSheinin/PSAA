@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.9"
 services:
 
   analyze_module:
@@ -6,25 +6,71 @@ services:
 #    volumes:
 #      - #TODO
 #    networks:
-#      - #TODO
+#      - analyze
 
-  controller_module:
-    image: controller_module:latest
-#    networks:
-#      - #TODO
-
-  password_module:
+ password_module:
     image: password_module:latest
 #    volumes:
 #      - #TODO
 #    networks:
-#      - #TODO
+#      - search
 
-#  message_broker:
-#    image: #TODO - your choice
-#    - #TODO
+  controller_module:
+    image: controller_module:latest
+#    networks:
+#      - search
+        - analyze
 
 #volumes:
 #  - #TODO
 #networks:
 #  - #TODO
+
+version: "3.1"
+
+services:
+  controller_module:
+    image: controller_module
+    build:
+      context: ./application
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+      - analyze_module
+      - search_module
+     networks:
+       - analyze
+       - password
+     
+  analyze_module:
+    image: analyze_module
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+     networks:
+      - analyze
+     volumes:
+        - ./theHarvester/:/home/code/psaa
+
+ password_module:
+    image: password_module
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    networks:
+      - password
+    volumes:
+        - ./theHarvester/:/home/code/psaa
+  
+rabbitmq:
+    image: rabbitmq
+    ports:
+      - 5673:5672
+
+networks:
+    analyze:
+    password:
