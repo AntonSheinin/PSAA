@@ -9,7 +9,7 @@ services:
     depends_on:
       - rabbitmq
       - analyze_module
-      - search_module
+      - password_module
      networks:
        - analyze
        - password
