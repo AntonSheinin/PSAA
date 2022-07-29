@@ -7,7 +7,7 @@ import time
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-time.sleep(20)
+time.sleep(15)
 
 tasks = []
 
@@ -17,6 +17,8 @@ app.conf.update(
     task_serializer='json',
     accept_content=['json'],  
     result_serializer='json')
+
+time.sleep(10)
 
 #print('1. Search password', '\n', '2. Analyze files')
 #choise = input('Enter choise : ')
