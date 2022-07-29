@@ -31,7 +31,9 @@ else:
     print('wrong choice')
 
 tasks.append(app.send_task('password'))
+print('password search task sent')
 tasks.append(app.send_task('analyze'))
+print('file analize task sent')
 
 for task in tasks:
     result = task.get()
