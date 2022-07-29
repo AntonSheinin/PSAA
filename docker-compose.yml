@@ -19,7 +19,7 @@ services:
     depends_on:
       - rabbitmq
     volumes:
-      - ./theHarvester/:/home/code/psaa
+      - ./theHarvester/:/home/code/
 
   password_module:
     image: password_module
@@ -29,7 +29,7 @@ services:
     depends_on:
       - rabbitmq
     volumes:
-      - ./theHarvester/:/home/code/psaa
+      - ./theHarvester/:/home/code/
 
   rabbitmq:
     image: bitnami/rabbitmq:latest
