@@ -36,10 +36,13 @@ def get_files_list(directory):
     return files_list
 
 @app.task(name='password')
-def search():
+def password():
     
     files_list = get_files_list('../theHarvester')
 
     result = password_search(files_list, 'password')
 
     return result
+
+def main():
+    app.start()
