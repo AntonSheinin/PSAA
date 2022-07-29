@@ -1,38 +1,10 @@
 version: "3.9"
-services:
-
-  analyze_module:
-    image: analyze_module:latest
-#    volumes:
-#      - #TODO
-#    networks:
-#      - analyze
-
- password_module:
-    image: password_module:latest
-#    volumes:
-#      - #TODO
-#    networks:
-#      - search
-
-  controller_module:
-    image: controller_module:latest
-#    networks:
-#      - search
-        - analyze
-
-#volumes:
-#  - #TODO
-#networks:
-#  - #TODO
-
-version: "3.1"
 
 services:
   controller_module:
     image: controller_module
     build:
-      context: ./application
+      context: ./controller_module
       dockerfile: Dockerfile
     depends_on:
       - rabbitmq
@@ -45,7 +17,7 @@ services:
   analyze_module:
     image: analyze_module
     build:
-      context: ./worker
+      context: ./analyze_module
       dockerfile: Dockerfile
     depends_on:
       - rabbitmq
@@ -57,7 +29,7 @@ services:
  password_module:
     image: password_module
     build:
-      context: ./worker
+      context: ./password_module
       dockerfile: Dockerfile
     depends_on:
       - rabbitmq
@@ -65,9 +37,9 @@ services:
       - password
     volumes:
         - ./theHarvester/:/home/code/psaa
-  
+
 rabbitmq:
-    image: rabbitmq
+    image: bitnami/rabbitmq:latest
     ports:
       - 5673:5672
 
