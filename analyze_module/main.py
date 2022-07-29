@@ -6,7 +6,7 @@ from celery import Celery
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
+app = Celery('main', broker='pyamqp://guest:bitnami@rabbitmq', backend='rpc://guest:bitnami@rabbitmq')
 
 def get_files_list(directory):
 
