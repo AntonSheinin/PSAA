@@ -9,6 +9,8 @@ logger = logging.getLogger(__name__)
 
 time.sleep(20)
 
+tasks = []
+
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
 app.conf.update(
@@ -16,27 +18,43 @@ app.conf.update(
     accept_content=['json'],  
     result_serializer='json')
 
-tasks = []
+print('1. Search password', '\n', '2. Analyze files')
+choise = input('Enter choise : ')
 
-def main():
-    app.start()
-
-    print('1. Search password', '\n', '2. Analyze files')
-    choise = input('Enter choise : ')
-
-    if choise == '1':
-        tasks.append(app.send_task('password'))
+if choise == '1':
+    tasks.append(app.send_task('password'))
     
-    elif choise == '2':
-        tasks.append(app.send_task('analyze'))
+elif choise == '2':
+    tasks.append(app.send_task('analyze'))
 
-    else:
-        print('wrong choice')
+else:
+    print('wrong choice')
 
-    for task in tasks:
-        result = task.get()
-        print('Received result:', result)
+for task in tasks:
+    result = task.get()
+    print('Received result:', result)
 
-if __name__ == '__main__':
-    logger.info("Controller module is running and listening...")
-    main()
+
+
+#def main():
+#    app.start()
+#
+#    print('1. Search password', '\n', '2. Analyze files')
+#    choise = input('Enter choise : ')
+#
+#    if choise == '1':
+#        tasks.append(app.send_task('password'))
+#    
+#    elif choise == '2':
+#        tasks.append(app.send_task('analyze'))
+#
+#    else:
+#        print('wrong choice')
+#
+#    for task in tasks:
+#        result = task.get()
+#        print('Received result:', result)
+#
+#if __name__ == '__main__':
+#    logger.info("Controller module is running and listening...")
+#    main()
