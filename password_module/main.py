@@ -35,7 +35,7 @@ def get_files_list(directory):
 
     return files_list
 
-@app.task
+@app.task(name='search')
 def search():
     
     files_list = get_files_list('../theHarvester')
@@ -43,7 +43,3 @@ def search():
     result = password_search(files_list, 'password')
 
     return result
-
-if __name__ == '__main__':
-    logger.info("Password module is listening...")
-    app.start()

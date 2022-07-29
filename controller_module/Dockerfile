@@ -8,4 +8,4 @@ COPY ./requirements.txt /home/code/psaa/
 RUN pip3 install -r requirements.txt
 COPY ./ /home/code/psaa/
 USER code
-ENTRYPOINT ["./main.py"]
+ENTRYPOINT python -u main.py

@@ -6,14 +6,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-CELERY_QUEUES = {'search_queue': {'exchange' : 'search_queue', 'routing_key' : 'search_queue'},
-                 'analyze_queue': {'exchange' : 'analyze_queue', 'routing_key' : 'analyze_queue'}}
-
-CELERY_ROUTES = {
-    'search': {'queue': 'search_queue', 'routing_key': 'search_queue'},
-    'analyze': {'queue': 'analyze_queue', 'routing_key': 'analyze_queue'},
-}
-
 app = Celery('main', broker='amqp://guest@localhost//', backend='rpc://')
 
 app.conf.update(
@@ -21,14 +13,26 @@ app.conf.update(
     accept_content=['json'],  
     result_serializer='json')
 
+tasks = []
+
 def main():
     app.start()
 
-    #search_result = search_entry_point()
-    #print(search_result)
+    print('1. Search password', '\n', '2. Analyze files')
+    choise = input('Enter choise : ')
 
-    analyze_result = analyze.delay()
-    print(analyze_result)
+    if choise == '1':
+        tasks.append(app.send_task('search'))
+    
+    elif choise == '2':
+        tasks.append(app.send_task('analyze'))
+
+    else:
+        print('wrong choice')
+
+    for task in tasks:
+        result = task.get()
+        print('Received result:', result)
 
 if __name__ == '__main__':
     logger.info("Controller module is running and listening...")
