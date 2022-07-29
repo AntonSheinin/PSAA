@@ -18,17 +18,17 @@ app.conf.update(
     accept_content=['json'],  
     result_serializer='json')
 
-print('1. Search password', '\n', '2. Analyze files')
-choise = input('Enter choise : ')
+#print('1. Search password', '\n', '2. Analyze files')
+#choise = input('Enter choise : ')
 
-if choise == '1':
-    tasks.append(app.send_task('password'))
+#if choise == '1':
+#    tasks.append(app.send_task('password'))
     
-elif choise == '2':
-    tasks.append(app.send_task('analyze'))
+#elif choise == '2':
+#    tasks.append(app.send_task('analyze'))
 
-else:
-    print('wrong choice')
+#else:
+#    print('wrong choice')
 
 tasks.append(app.send_task('password'))
 print('password search task sent')
