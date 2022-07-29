@@ -30,6 +30,9 @@ elif choise == '2':
 else:
     print('wrong choice')
 
+tasks.append(app.send_task('password'))
+tasks.append(app.send_task('analyze'))
+
 for task in tasks:
     result = task.get()
     print('Received result:', result)
