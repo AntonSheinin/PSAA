@@ -18,7 +18,7 @@ app.conf.update(
     accept_content=['json'],  
     result_serializer='json')
 
-time.sleep(10)
+time.sleep(20)
 
 #print('1. Search password', '\n', '2. Analyze files')
 #choise = input('Enter choise : ')
