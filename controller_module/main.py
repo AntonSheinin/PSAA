@@ -27,7 +27,7 @@ app.conf.update(result_serializer='json')
 tasks.append(app.send_task('password', queue = 'password'))
 print('password search task sent')
 
-tasks.append(app.send_task('analyze'), queue = 'analyze')
+tasks.append(app.send_task('analyze', queue = 'analyze'))
 print('file analize task sent')
 
 for task in tasks:
