@@ -13,7 +13,7 @@ app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://use
 
 def get_files_list(directory):
 
-    files_list = {'count' : 0, 'files' : []}
+    files_list = {'task_name' : 'analyze', 'count' : 0, 'files' : []}
 
     for root, directories, files in os.walk(directory):
         for file_name in files:

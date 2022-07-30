@@ -12,7 +12,7 @@ app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://use
 
 def password_search(files_list, word):
 
-    files_with_password = {'count' : 0, 'files' : []}
+    files_with_password = {'task_name' : 'password', 'count' : 0, 'files' : []}
     count = 0
 
     for file_name in files_list:
