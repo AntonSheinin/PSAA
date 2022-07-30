@@ -9,11 +9,11 @@ logger = logging.getLogger(__name__)
 
 #tasks = []
 
-app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
+#app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
-app.conf.update(task_serializer='json',
-                accept_content=['json'],  
-                result_serializer='json')
+#app.conf.update(task_serializer='json',
+ #               accept_content=['json'],  
+ #               result_serializer='json')
 
 #time.sleep(30)
 
@@ -29,7 +29,13 @@ app.conf.update(task_serializer='json',
 def main():
 
     tasks = []
-    
+
+    app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
+
+    app.conf.update(task_serializer='json',     
+                accept_content=['json'],  
+                result_serializer='json')
+
     app.start()
 
     time.sleep(30)
