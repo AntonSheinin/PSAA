@@ -43,5 +43,5 @@ def password():
     
     return password_search(get_files_list('./theHarvester'), 'password')
 
-if __name__ == '__main__':
-    logger.info("Password module is running and listening...")
+#if __name__ == '__main__':
+#    logger.info("Password module is running and listening...")

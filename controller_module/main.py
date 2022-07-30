@@ -31,5 +31,5 @@ for task in tasks:
         json.dump(result, file)
     print('Received result:', result)
 
-#if __name__ == '__main__':
-#    logger.info("Controller module is running and listening...")
+if __name__ == '__main__':
+    logger.info("Controller module is running and listening...")
