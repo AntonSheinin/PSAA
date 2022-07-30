@@ -1,10 +1,5 @@
-import logging
 from celery import Celery
 import os
-import time
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
@@ -40,6 +35,3 @@ def get_files_list(directory):
 def password():
     
     return password_search(get_files_list('./theHarvester'), 'password')
-
-#if __name__ == '__main__':
-#    logger.info("Password module is running and listening...")

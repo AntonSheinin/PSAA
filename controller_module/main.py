@@ -1,6 +1,5 @@
 #Home Assignment for PTBox.io
 
-import queue
 from celery import Celery
 from kombu import Queue
 import logging 

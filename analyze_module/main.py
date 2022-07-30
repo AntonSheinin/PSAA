@@ -1,12 +1,6 @@
-import logging
-from msilib import _directories
 import os
 from collections import Counter
 from celery import Celery
-import time
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
@@ -47,6 +41,3 @@ def files_list_analize(files_list):
 def analyze():
 
     return(files_list_analize(get_files_list('./theHarvester')))
-
-if __name__ == '__main__':
-    logger.info("Analyze module is running and listening...")
