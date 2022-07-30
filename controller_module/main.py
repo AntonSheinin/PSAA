@@ -8,6 +8,8 @@ import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+time.sleep(30)
+
 tasks = []
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
@@ -18,7 +20,7 @@ app.conf.update(task_serializer='json',
 
 app.start()
 
-time.sleep(30)
+#time.sleep(30)
 
 tasks.append(app.send_task('password'))
 print('password search task sent')
