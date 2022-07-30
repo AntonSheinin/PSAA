@@ -1,6 +1,8 @@
 #Home Assignment for PTBox.io
 
+import queue
 from celery import Celery
+from kombu import Queue
 import logging 
 import time
 import json
@@ -14,14 +16,18 @@ tasks = []
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
-app.conf.update(task_serializer='json', accept_content=['json'], result_serializer='json')
+
+app.conf.task_queues = (Queue('password', routing_key='password'),
+                        Queue('analyze', routing_key='analyze'))
+
+app.conf.update(result_serializer='json')
 
 #time.sleep(30)
 
-tasks.append(app.send_task('password'))
+tasks.append(app.send_task('password', queue = 'password'))
 print('password search task sent')
 
-tasks.append(app.send_task('analyze'))
+tasks.append(app.send_task('analyze'), queue = 'analyze')
 print('file analize task sent')
 
 for task in tasks:
