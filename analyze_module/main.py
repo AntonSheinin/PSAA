@@ -1,6 +1,9 @@
 import os
+import time
 from collections import Counter
 from celery import Celery
+
+time.sleep(15)
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 

@@ -1,5 +1,8 @@
 from celery import Celery
 import os
+import time
+
+time.sleep(15)
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
