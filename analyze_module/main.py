@@ -42,7 +42,7 @@ def files_list_analize(files_list):
 
     return result
 
-@app.task()
+@app.task(name='analyze')
 def analyze():
 
     return(files_list_analize(get_files_list('./theHarvester')))

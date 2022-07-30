@@ -19,10 +19,10 @@ def main():
 
     tasks = []
 
-    tasks.append(app.send_task(queue = 'password'))
+    tasks.append(app.send_task('password', queue = 'password'))
     logger.info('password search task sent')
 
-    tasks.append(app.send_task(queue = 'analyze'))
+    tasks.append(app.send_task('analyze', queue = 'analyze'))
     logger.info('file analyze task sent')
 
     for task in tasks:
