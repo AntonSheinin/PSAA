@@ -7,4 +7,4 @@ COPY ./requirements.txt /home/code/
 RUN pip3 install -r requirements.txt
 COPY ./ /home/code/
 USER code
-ENTRYPOINT celery -A main worker -l INFO -Q analyze
+ENTRYPOINT celery -A main worker -Q analyze

@@ -49,5 +49,5 @@ def analyze():
 
     return(files_list_analize(get_files_list('./theHarvester')))
 
-#if __name__ == '__main__':
-#    logger.info("Analyze module is running and listening...")
+if __name__ == '__main__':
+    logger.info("Analyze module is running and listening...")
