@@ -12,7 +12,7 @@ services:
       - password_module
     volumes:
       - ./theHarvester:/home/code/theHarvester
-    network:
+    networks:
       - password
       - analize
          
