@@ -8,7 +8,7 @@ import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#time.sleep(30)
+time.sleep(30)
 
 tasks = []
 
