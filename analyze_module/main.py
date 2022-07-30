@@ -13,7 +13,7 @@ def get_files_list(directory):
 
     files_list = {'count' : 0, 'files' : []}
 
-    for root, directories, files in os.walk(directory):
+    for root, files in os.walk(directory):
         for file_name in files:
             file_path = os.path.join(root, file_name)
             file_size = os.path.getsize(file_path)
