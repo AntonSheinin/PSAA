@@ -10,6 +10,8 @@ services:
       - rabbitmq
       - analyze_module
       - password_module
+    volumes:
+      - ./theHarvester:/home/code/theHarvester
          
   analyze_module:
     image: analyze_module
