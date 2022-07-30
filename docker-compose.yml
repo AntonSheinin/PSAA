@@ -50,8 +50,6 @@ services:
 
 networks:
   analyze:
-    external:
-      name: analyze
+    name: analyze
   password:
-    external:
-      name: password
+    name: password
