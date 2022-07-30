@@ -40,3 +40,4 @@ def main():
 if __name__ == '__main__':
     logger.info('Controller module is started...')
     main()
+    logger.info('Controller module is stopped...')
