@@ -10,8 +10,6 @@ import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#time.sleep(10)
-
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
 app.conf.task_queues = (Queue('password'),
@@ -21,16 +19,16 @@ def main():
 
     tasks = []
 
-    tasks.append(app.send_task('password', queue = 'password'))
+    tasks.append(app.send_task(queue = 'password'))
     logger.info('password search task sent')
 
-    tasks.append(app.send_task('analyze', queue = 'analyze'))
+    tasks.append(app.send_task(queue = 'analyze'))
     logger.info('file analyze task sent')
 
     for task in tasks:
         result = task.get()
         task_name = result['task_name']
-        logger.info('result for task' + task_name + ' received')
+        logger.info('result for task ' + task_name + ' received')
         with open('./theHarvester/' + task_name + '.json', 'w') as file:
             json.dump(result, file)
             logger.info('result for task' + task_name + ' saved to file ' + task_name + '.json')

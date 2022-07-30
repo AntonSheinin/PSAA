@@ -7,8 +7,6 @@ import time
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#time.sleep(15)
-
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
 def get_files_list(directory):
@@ -44,7 +42,7 @@ def files_list_analize(files_list):
 
     return result
 
-@app.task(name='analyze')
+@app.task()
 def analyze():
 
     return(files_list_analize(get_files_list('./theHarvester')))

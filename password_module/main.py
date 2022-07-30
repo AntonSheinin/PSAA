@@ -6,8 +6,6 @@ import time
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-#time.sleep(15)
-
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
 def password_search(files_list, word):
@@ -38,7 +36,7 @@ def get_files_list(directory):
 
     return files_list
 
-@app.task(name='password')
+@app.task()
 def password():
     
     return password_search(get_files_list('./theHarvester'), 'password')
