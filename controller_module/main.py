@@ -31,7 +31,7 @@ def main():
         logger.info('result for task ' + task_name + ' received')
         with open('./theHarvester/' + task_name + '.json', 'w') as file:
             json.dump(result, file)
-            logger.info('result for task' + task_name + ' saved to file ' + task_name + '.json')
+            logger.info('result for task ' + task_name + ' saved to file ' + task_name + '.json')
         
 if __name__ == '__main__':
     logger.info('Controller module is started...')
