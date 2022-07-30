@@ -7,4 +7,4 @@ COPY ./requirements.txt /home/code/
 RUN pip3 install -r requirements.txt
 COPY ./ /home/code/
 USER code
-ENTRYPOINT ls; celery -A main worker --loglevel=DEBUG
+ENTRYPOINT ls; celery -A main worker --loglevel=INFO
