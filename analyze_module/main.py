@@ -13,7 +13,7 @@ app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://use
 
 def get_files_list(directory):
 
-    files_list = {'task_name' : 'analyze', 'count' : 0, 'files' : []}
+    files_list = {'count' : 0, 'files' : []}
 
     for root, directories, files in os.walk(directory):
         for file_name in files:
@@ -29,7 +29,7 @@ def get_files_list(directory):
 
 def files_list_analize(files_list):
 
-    result = {'ext' : {}, 'files' : []}
+    result = {'task_name' : 'analyze', 'ext' : {}, 'files' : []}
     ext_counter = Counter()
 
     files_list['files'].sort(key=lambda x: x['file_size'], reverse=True)
@@ -47,6 +47,7 @@ def files_list_analize(files_list):
 @app.task(name='analyze')
 def analyze():
 
-    #files_list = get_files_list('./theHarvester')
-    #result = files_list_analize(files_list)
     return(files_list_analize(get_files_list('./theHarvester')))
+
+if __name__ == '__main__':
+    logger.info("Analyze module is running and listening...")

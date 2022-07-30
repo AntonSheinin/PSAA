@@ -8,7 +8,7 @@ import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-time.sleep(30)
+#time.sleep(30)
 
 tasks = []
 
@@ -26,11 +26,10 @@ print('file analize task sent')
 
 for task in tasks:
     result = task.get()
-    with open('./output.json', 'w') as file:
+    task_name = result['task_name']
+    with open('./theHarvester/' + task_name + '.json', 'w') as file:
         json.dump(result, file)
     print('Received result:', result)
 
-#if __name__ == '__main__':
-#    logger.info("Controller module is running and listening...")
-#    app.start()
-#    main()
+if __name__ == '__main__':
+    logger.info("Controller module is running and listening...")

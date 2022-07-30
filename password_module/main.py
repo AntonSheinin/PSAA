@@ -41,8 +41,7 @@ def get_files_list(directory):
 @app.task(name='password')
 def password():
     
-    #files_list = get_files_list('./theHarvester')
-
-    #result = password_search(files_list, 'password')
-
     return password_search(get_files_list('./theHarvester'), 'password')
+
+if __name__ == '__main__':
+    logger.info("Password module is running and listening...")
