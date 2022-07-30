@@ -47,6 +47,6 @@ def files_list_analize(files_list):
 @app.task(name='analyze')
 def analyze():
 
-    files_list = get_files_list('./theHarvester')
-    result = files_list_analize(files_list)
-    return(result)
+    #files_list = get_files_list('./theHarvester')
+    #result = files_list_analize(files_list)
+    return(files_list_analize(get_files_list('./theHarvester')))

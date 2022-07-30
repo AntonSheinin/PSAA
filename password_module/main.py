@@ -41,8 +41,8 @@ def get_files_list(directory):
 @app.task(name='password')
 def password():
     
-    files_list = get_files_list('./theHarvester')
+    #files_list = get_files_list('./theHarvester')
 
-    result = password_search(files_list, 'password')
+    #result = password_search(files_list, 'password')
 
-    return result
+    return password_search(get_files_list('./theHarvester'), 'password')
