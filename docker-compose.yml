@@ -12,6 +12,9 @@ services:
       - password_module
     volumes:
       - ./theHarvester:/home/code/theHarvester
+    network:
+      - password
+      - analize
          
   analyze_module:
     image: analyze_module
@@ -22,6 +25,8 @@ services:
       - rabbitmq
     volumes:
       - ./theHarvester:/home/code/theHarvester
+    networks:
+      - analyze
 
   password_module:
     image: password_module
@@ -32,8 +37,21 @@ services:
       - rabbitmq
     volumes:
       - ./theHarvester:/home/code/theHarvester
+    networks:
+     - password
 
   rabbitmq:
     image: bitnami/rabbitmq:latest
     ports:
       - 5673:5672
+    networks:
+      - analyze
+      - password
+
+networks:
+  analyze:
+    external:
+      name: analyze
+  password:
+    external:
+      name: password
