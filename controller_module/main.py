@@ -18,9 +18,7 @@ app.conf.update(task_serializer='json',
                 accept_content=['json'],  
                 result_serializer='json')
 
-app.start()
-
-#time.sleep(30)
+#app.start()
 
 tasks.append(app.send_task('password'))
 print('password search task sent')
