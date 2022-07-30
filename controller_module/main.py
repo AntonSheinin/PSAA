@@ -27,7 +27,7 @@ def main():
     logger.info('password search task sent')
 
     tasks.append(app.send_task('analyze', queue = 'analyze'))
-    logger.info('file analize task sent')
+    logger.info('file analyze task sent')
 
     for task in tasks:
         result = task.get()
