@@ -14,7 +14,7 @@ services:
       - ./theHarvester:/home/code/theHarvester
     networks:
       - password
-      - analize
+      - analyze
          
   analyze_module:
     image: analyze_module
