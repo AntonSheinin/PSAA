@@ -51,5 +51,7 @@ services:
 networks:
   analyze:
     name: analyze
+    driver: bridge
   password:
     name: password
+    driver: bridge
