@@ -1,17 +1,14 @@
 import os
-import time
 from collections import Counter
 from celery import Celery
 
-time.sleep(15)
-
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
-def get_files_list(directory):
+def get_files_list(directory: str) -> dict:
 
     files_list = {'count' : 0, 'files' : []}
 
-    for root, directories, files in os.walk(directory):
+    for root, _, files in os.walk(directory):
         for file_name in files:
             file_path = os.path.join(root, file_name)
             file_size = os.path.getsize(file_path)
@@ -23,15 +20,13 @@ def get_files_list(directory):
 
     return files_list
 
-def files_list_analize(files_list):
+def files_list_analize(files_list : dict) -> dict:
 
     result = {'task_name' : 'analyze', 'ext' : {}, 'files' : []}
     ext_counter = Counter()
 
     files_list['files'].sort(key=lambda x: x['file_size'], reverse=True)
-
-    for i in range(10):
-        result['files'].append(files_list['files'][i])
+    result['files'] = files_list['files'][:10]
 
     for file in files_list['files']:
         ext_counter[file['file_ext']] += 1
@@ -43,4 +38,4 @@ def files_list_analize(files_list):
 @app.task(name='analyze')
 def analyze():
 
-    return(files_list_analize(get_files_list('./theHarvester')))
+    return files_list_analize(get_files_list('./theHarvester'))

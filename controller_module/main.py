@@ -1,20 +1,16 @@
 #Home Assignment for PTBox.io
 
+import logging 
+import json
 from celery import Celery
 from kombu import Queue
-import logging 
-import time
-import json
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-time.sleep(20)
-
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
 
-app.conf.task_queues = (Queue('password'),
-                        Queue('analyze'))
+app.conf.task_queues = (Queue('password'), Queue('analyze'))
 
 def main():
 
@@ -29,11 +25,11 @@ def main():
     for task in tasks:
         result = task.get()
         task_name = result['task_name']
-        logger.info('result for task ' + task_name + ' received')
-        with open('./theHarvester/' + task_name + '.json', 'w') as file:
+        logger.info('result for task %s received', task_name)
+        with open('./theHarvester/' + task_name + '.json', 'w', encoding="utf8") as file:
             json.dump(result, file)
-            logger.info('result for task ' + task_name + ' saved to file ' + task_name + '.json')
-        
+            logger.info('result for task %s saved to file %s.json', task_name, task_name)
+   
 if __name__ == '__main__':
     logger.info('Controller module is started...')
     main()
