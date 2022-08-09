@@ -1,5 +1,3 @@
-#Home Assignment for PTBox.io
-
 import logging 
 import json
 from celery import Celery
