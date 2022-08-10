@@ -1,5 +1,5 @@
 import os
-from collections import Counter
+from collections import defaultdict
 from celery import Celery
 
 app = Celery('main', broker='pyamqp://user:bitnami@rabbitmq', backend='rpc://user:bitnami@rabbitmq')
@@ -23,7 +23,7 @@ def get_files_list(directory: str) -> dict:
 def files_list_analize(files_list : dict) -> dict:
 
     result = {'task_name' : 'analyze', 'ext' : {}, 'files' : []}
-    ext_counter = Counter()
+    ext_counter = defaultdict(int)
 
     files_list['files'].sort(key=lambda x: x['file_size'], reverse=True)
     result['files'] = files_list['files'][:10]
@@ -31,7 +31,7 @@ def files_list_analize(files_list : dict) -> dict:
     for file in files_list['files']:
         ext_counter[file['file_ext']] += 1
 
-    result['ext'] = [{k: v} for k, v in ext_counter.items()]
+    result['ext'] = ext_counter
 
     return result
 

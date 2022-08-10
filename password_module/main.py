@@ -8,7 +8,7 @@ def password_search(files_list: list, word: str) -> dict:
     files_with_password = {'task_name' : 'password', 'count' : 0, 'files' : []}
 
     for file_name in files_list:
-        with open(file_name, encoding="utf8") as file:
+        with open(file_name, encoding='utf8') as file:
             count = 0
             count = sum([line.count(word) for line in file])
 
