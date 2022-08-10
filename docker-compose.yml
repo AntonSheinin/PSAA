@@ -11,6 +11,8 @@ services:
         condition: service_healthy
     volumes:
       - ./theHarvester:/home/code/theHarvester
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - password
       - analyze
